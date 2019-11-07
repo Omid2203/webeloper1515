@@ -3,11 +3,18 @@
     </head>
     <body>
         <nav>
+            {% if user_authenticated %}
+           <div id="navbar">
+               <a id="homepage" href="/">Home Page</a>
+               <a id="logout">Logout</a>
+            </div>
+            {% else %}
             <div id="navbar">
-                <a id="login">Login</a>
-                <a id="register" href="signup/">Register</a>
+                <a id="login" href="{% url 'login' %}">Login</a>
+                <a id="register" href="{% url 'signup' %}">Register</a>
                 <a id="homepage" href="/">Home Page</a>
             </div>
+            {% endif %}
         </nav>
         <div>
             <h1>سالم. به سامانهی انتخاب واحد مجازی خوش آمدید.</h1>
