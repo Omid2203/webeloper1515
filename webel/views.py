@@ -1,11 +1,12 @@
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from .forms import SignUpForm, Contact
+from .forms import SignUpForm, Contact, EditProfileForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.core.mail import BadHeaderError, send_mail
+from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
@@ -71,3 +72,30 @@ def contact(request):
 
 def contactdone(request):
     return render(request, 'contactdone.html')
+
+@login_required
+def userprofile(request):
+    username = request.user.username
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    context = {
+        'username':username,
+        'first_name':first_name,
+        'last_name':last_name,
+    }
+    return render(request, 'userprofile.html', context)
+
+@login_required
+def userprofileedit(request):
+    if request.method == "POST":
+        form = EditProfileForm(request.POST,instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('userprofile')
+    else:
+        form = EditProfileForm(request.POST,instance=request.user)
+        return render(request, 'userprofileedit.html', {'form':form})
+
+@login_required
+def panel(request):
+    return render(request, 'panel.html')

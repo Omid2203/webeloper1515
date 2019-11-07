@@ -28,4 +28,9 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('contact/', views.contact, name="contact"),
     path('contactdone/', views.contactdone, name='contactdone'),
+    path('userprofile/', views.userprofile, name="userprofile"),
+    path('userprofileedit/', views.userprofileedit, name="userprofileedit"),
+    path('panel/', views.panel, name="panel")
+
+
 ]
