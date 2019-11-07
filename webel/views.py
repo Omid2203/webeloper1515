@@ -1,5 +1,6 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from django.http import HttpResponseRedirect, HttpResponse
@@ -16,12 +17,15 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             password2 = form.cleaned_data.get('password2')
             return redirect('home')
+        username = request.POST['username']
         password = form.cleaned_data.get('password1')
         password2 = form.cleaned_data.get('password2')
         if password != password2:
             return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
-    else:
-        form = SignUpForm()
+        user = User.objects.filter(username=str(username)).count()
+        if user > 0:
+            return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
+    form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
 
