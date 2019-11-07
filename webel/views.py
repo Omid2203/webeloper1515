@@ -2,6 +2,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def signup(request):
@@ -11,8 +14,6 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
             return redirect('home')
     else:
         form = SignUpForm()
@@ -21,14 +22,18 @@ def signup(request):
 
 
 def loginview(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect('home')
-    else:
-        messages.error(request, 'username or password not correct')
-        return redirect('login')
-
-    return render(request, 'login.html', {'form': form})
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            print('hello')
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+        else:
+            print('hi')
+            return render(request, template_name='login.html', context={"error": "error is this!", "form": form})
+    form = AuthenticationForm()
+    return render(request, template_name="login.html", context={"form": form})
