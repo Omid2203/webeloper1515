@@ -17,5 +17,11 @@
       <label>Confirm Password</label>
       <input type="text" name="password2">
     <button type="submit" name="submit">Sign up</button>
+
+
+      {% if error %}
+        <div id="error">{{ error }}</div>
+    {% endif %}
+
   </form>
 {% endblock %}

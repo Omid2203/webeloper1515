@@ -6,7 +6,7 @@
             {% if user.is_authenticated %}
            <div id="navbar">
                <a id="homepage" href="/">Home Page</a>
-               <a id="logout">Logout</a>
+               <a id="logout" href="{% url 'logout' %}">Logout</a>
             </div>
             {% else %}
             <div id="navbar">

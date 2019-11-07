@@ -25,4 +25,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='base.html'), name='home'),
     path('signup/', views.signup, name="signup"),
     path('login/', views.loginview, name="login"),
+    path('logout/', views.logout_view, name='logout'),
 ]
