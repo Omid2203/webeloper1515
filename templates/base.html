@@ -1,27 +1,43 @@
 <html>
     <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
-        <nav>
+    <div class="container">
+        <div class="navbar">
         {% if user.is_authenticated %}
-           <div id="navbar">
-               <a id="homepage" href="/">Home Page</a>
-               <a id="profile" href="{% url 'userprofile' %}">User Profile</a>
-               <a id="contact_us" href="{% url 'contact' %}">Contact</a>
-               <a id="logout" href="{% url 'logout' %}">Logout</a>
-               <a id="panel" href="{% url 'panel' %}">Panel Management</a>
-            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light"  id="navbar">
+                 <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <a class="navbar-brand" id="homepage" href="/">Home Page</a>
+                        <a class="nav-link" id="profile" href="{% url 'userprofile' %}">User Profile</a>
+                        <a class="nav-link" id="contact_us" href="{% url 'contact' %}">Contact</a>
+                        <a class="nav-link" id="panel" href="{% url 'panel' %}">Panel Management</a>
+                        <a class="nav-link" id="logout" href="{% url 'logout' %}">Logout</a>
+                 </div>
+
+
             {% else %}
-            <div id="navbar">
-                <a id="login" href="{% url 'login' %}">Login</a>
-                <a id="register" href="{% url 'signup' %}">Register</a>
-                <a id="homepage" href="/">Home Page</a>
-                <a id="contact_us" href="{% url 'contact' %}" >Contact</a>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light"  id="navbar">
+                 <div class="collapse navbar-collapse">
+                    <a class="navbar-brand" id="login" href="{% url 'login' %}">Login</a>
+                    <a class="nav-link" id="register" href="{% url 'signup' %}">Register</a>
+                    <a class="nav-link" id="homepage" href="/">Home Page</a>
+                    <a class="nav-link" id="contact_us" href="{% url 'contact' %}" >Contact</a>
             </div>
         {% endif %}
-        </nav>
-    {%  block body_block %}
-        سلام. به سامانه‌ی انتخاب واحد مجازی خوش آمدید.
+            </nav>
+    </div>
+        <div class="container">
+            <div class="jumbotron">
+                {%  block body_block %}
+                سلام. به سامانه‌ی انتخاب واحد مجازی خوش آمدید.
                 {% endblock %}
+            </div>
+        </div>
     </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 </html>

@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'course',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
+TIME_INPUT_FORMATS=['%H:%M',]
 
 LANGUAGE_CODE = 'en-us'
 

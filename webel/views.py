@@ -1,12 +1,15 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm, UserChangeForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 from django.shortcuts import render, redirect
-from .forms import SignUpForm, Contact, EditProfileForm
-from django.http import HttpResponseRedirect, HttpResponse
+
 from django.urls import reverse
+from .forms import SignUpForm, Contact, EditProfileForm
+
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.mail import BadHeaderError, send_mail
-from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
@@ -99,3 +102,8 @@ def userprofileedit(request):
 @login_required
 def panel(request):
     return render(request, 'panel.html')
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def my_view(request):
+    pass

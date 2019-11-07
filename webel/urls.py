@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 from . import views
+from course import views as appview
 from django.contrib.auth import views as auth_view
 
 
@@ -30,7 +31,9 @@ urlpatterns = [
     path('contactdone/', views.contactdone, name='contactdone'),
     path('userprofile/', views.userprofile, name="userprofile"),
     path('userprofileedit/', views.userprofileedit, name="userprofileedit"),
-    path('panel/', views.panel, name="panel")
+    path('panel/', views.panel, name="panel"),
+    path('courses/', appview.CourseCreateView.as_view(), name="courses"),
+    path('courselist/', appview.CourseListView.as_view(), name='courselist')
 
 
 ]
