@@ -19,7 +19,7 @@ class Course(models.Model):
     end_time = models.TimeField()
     first_day = models.IntegerField(choices=Days)
     second_day = models.IntegerField(choices=Days, blank=True, null=True)
-    exam_date = models.DateField()
+    exam_date = models.DateField(required=True)
 
     def __str__(self):
         return self.name
