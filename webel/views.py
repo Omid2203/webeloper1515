@@ -75,8 +75,10 @@ def contact(request):
             return redirect('contactdone')
     return render(request, "contact.html", {'form': form})
 
+
 def contactdone(request):
     return render(request, 'contactdone.html')
+
 
 @login_required
 def userprofile(request):
@@ -84,22 +86,24 @@ def userprofile(request):
     first_name = request.user.first_name
     last_name = request.user.last_name
     context = {
-        'username':username,
-        'first_name':first_name,
-        'last_name':last_name,
+        'username': username,
+        'first_name': first_name,
+        'last_name': last_name,
     }
     return render(request, 'userprofile.html', context)
+
 
 @login_required
 def userprofileedit(request):
     if request.method == "POST":
-        form = EditProfileForm(request.POST,instance=request.user)
+        form = EditProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('userprofile')
     else:
-        form = EditProfileForm(request.POST,instance=request.user)
-        return render(request, 'userprofileedit.html', {'form':form})
+        form = EditProfileForm(request.POST, instance=request.user)
+        return render(request, 'userprofileedit.html', {'form': form})
+
 
 @login_required
 def panel(request):
