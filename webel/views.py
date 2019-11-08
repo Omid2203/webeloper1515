@@ -11,29 +11,37 @@ from django.urls import reverse
 from .forms import SignUpForm, Contact, EditProfileForm
 
 from django.http import HttpResponseRedirect, HttpResponse
-from django.core.mail import BadHeaderError, send_mail
+from django.core.mail import BadHeaderError, send_mail, EmailMessage
+
 
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+
+
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             password2 = form.cleaned_data.get('password2')
+            if password != password2:
+                return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
+            user = User.objects.filter(username=str(username)).count()
+            if user > 0:
+                return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
+            form.save()
             return redirect('home')
-        username = request.POST['username']
-        password = form.cleaned_data.get('password1')
-        password2 = form.cleaned_data.get('password2')
-        if password != password2:
-            return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
-        user = User.objects.filter(username=str(username)).count()
-        if user > 0:
-            return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
+        else:
+            username = request.POST['username']
+            password = request.POST['password1']
+            password2 = request.POST['password2']
+            if password != password2:
+                return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
+            user = User.objects.filter(username=str(username)).count()
+            if user > 0:
+                return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
     form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
-
 
 
 def loginview(request):
@@ -54,7 +62,6 @@ def loginview(request):
     return render(request, template_name="login.html", context={"form": form})
 
 
-
 def logout_view(request):
     logout(request)
     return redirect('/')
@@ -71,14 +78,13 @@ def contact(request):
             text = request.POST['text']
             print(title, text, email)
             send_mail(title, text, email_from, ['mohammadomid.79@gmail.com'])
-
+            email = EmailMessage(title, text, to=['mohammadomid.79@gmail.com'])
+            email.send()
             return redirect('contactdone')
     return render(request, "contact.html", {'form': form})
 
-
 def contactdone(request):
     return render(request, 'contactdone.html')
-
 
 @login_required
 def userprofile(request):
@@ -86,24 +92,36 @@ def userprofile(request):
     first_name = request.user.first_name
     last_name = request.user.last_name
     context = {
-        'username': username,
-        'first_name': first_name,
-        'last_name': last_name,
+        'username':username,
+        'first_name':first_name,
+        'last_name':last_name,
     }
     return render(request, 'userprofile.html', context)
-
 
 @login_required
 def userprofileedit(request):
     if request.method == "POST":
-        form = EditProfileForm(request.POST, instance=request.user)
+        form = EditProfileForm(request.POST,instance=request.user)
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        context = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'form': form,
+        }
         if form.is_valid():
             form.save()
             return redirect('userprofile')
     else:
-        form = EditProfileForm(request.POST, instance=request.user)
-        return render(request, 'userprofileedit.html', {'form': form})
-
+        form = EditProfileForm(request.POST,instance=request.user)
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        context = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'form': form,
+        }
+        return render(request, 'userprofileedit.html', context)
 
 @login_required
 def panel(request):
