@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h2 id="welcomemessage">خوش آمدید</h2>
+            {% for stu in course %}
+                <div id=”all_courses”>
+                    <div class="{{ stu.course_number }}_{{ stu.group_number }}">
+                        <h4>{{ stu.name }}</h4>
+                        <div>{{ stu.department }}</div>
+{#                        #<div>{{ stu. }}</div>#}
+                        <div>{{ stu.start_time }} {{ stu.end_time }}</div>
+                        <div>{{ stu.teacher }}</div>
+          {% endfor %}
+</body>
+</html>

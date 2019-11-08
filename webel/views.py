@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 from django.shortcuts import render, redirect
 
+from django.conf import settings
+
 from django.urls import reverse
 from .forms import SignUpForm, Contact, EditProfileForm
 
@@ -63,13 +65,13 @@ def contact(request):
     else:
         form = Contact(request.POST)
         if form.is_valid():
-            title = form.cleaned_data['title']
-            email = form.cleaned_data['email']
-            text = form.cleaned_data['text']
-            try:
-                send_mail(title, text, email, ['webe19lopers@gmail.com'])
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
+            title = request.POST['title']
+            email = request.POST['email']
+            email_from = settings.EMAIL_HOST_USER
+            text = request.POST['text']
+            print(title, text, email)
+            send_mail(title, text, email_from, ['mohammadomid.79@gmail.com'])
+
             return redirect('contactdone')
     return render(request, "contact.html", {'form': form})
 

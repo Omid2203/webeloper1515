@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <body>
+        <form id=”make_course” method="POST">
+            {% csrf_token %}
+
+            <input name=”department” placeholder="Department">
+            <input name=”name” placeholder="Name">
+            <input name=”course_number” placeholder="Course Number">
+            <input name=”group_number” placeholder="Group Number">
+            <input name=”teacher” placeholder="Teacher">
+            <input name=”start_time” placeholder="Start Time">
+            <input name=”end_time” placeholder="End Time">
+            <select name=”first_day”>
+                <option value=”0”>0</option>
+                <option value=”1”>1</option>
+                <option value=”2”>1</option>
+                <option value=”3”>1</option>
+                <option value=”4”>1</option>
+            </select>
+            <select name=”second_day”>
+                <option value=”0”>1</option>
+                <option value=”1”>1</option>
+                <option value=”2”>1</option>
+                <option value=”3”>1</option>
+                <option value=”4”>1</option>
+            </select>
+            <button type="submit">Submit form</button>
+            </form>
+    </body>
+</html>

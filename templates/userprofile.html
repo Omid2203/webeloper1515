@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block body_block %}
+    <nav>
+        <a id="setting" href="{% url 'userprofileedit' %}">Edit User Profile Info</a>
+    </nav>
+    <span id="text_first_name">{{ first_name }}</span>
+    <span id="text_last_name">{{ last_name }}</span>
+    <span id="text_user_name">{{ username }}</span>
+{% endblock %}

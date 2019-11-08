@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body_block %}
+    <form id="setting_form" method="post">
+        {% csrf_token %}
+        <label>New First Name</label>
+        <input type="text" name="first_name">
+        <label>New Last Name</label>
+        <input type="text" name="last_name">
+
+    <button type="submit">Change Information</button>
+    </form>
+{% endblock %}
+
+
