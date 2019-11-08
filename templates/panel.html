@@ -1,9 +1,8 @@
-<html>
-<head>
-    <title>Panel</title>
-</head>
-<body>
-<a id="make_new_course" href="{% url 'courses' %}">Course Maker</a>
-<a id="courses" href="{% url 'courselist' %}">Course List</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block body_block %}
+{% if request.user.is_superuser %}
+    <a id="make_new_course" href="{% url 'courses' %}">ساختن واحد</a>
+{% endif %}
+
+<a id="courses" href="{% url 'courselist' %}">لیست واحدها</a>
+{% endblock %}

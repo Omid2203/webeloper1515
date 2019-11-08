@@ -37,6 +37,7 @@ def course(request):
     form = CourseForm()
     return render(request, 'courses.html', {'form': form})
 
+
 @login_required
 def courses(request):
     form = CourseForm()
