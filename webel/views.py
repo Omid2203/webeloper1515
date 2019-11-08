@@ -17,23 +17,26 @@ from django.core.mail import BadHeaderError, send_mail, EmailMessage
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password1']
-        password2 = request.POST['password2']
-        user = User.objects.filter(username=str(username)).count()
-        if user > 0:
-            return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
         if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            password2 = form.cleaned_data.get('password2')
+            user = User.objects.filter(username=str(username)).count()
+            if user > 0:
+                return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
+            if password != password2:
+                return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
             form.save()
-            # username = form.cleaned_data.get('username')
-            # password = form.cleaned_data.get('password1')
-            # password2 = form.cleaned_data.get('password2')
             return redirect('home')
-        if password != password2:
-            return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
-        # user = User.objects.filter(username=str(username)).count()
-        # if user > 0:
-        #     return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
+        else:
+            username = request.POST['username']
+            password = request.POST['password1']
+            password2 = request.POST['password2']
+            user = User.objects.filter(username=str(username)).count()
+            if user > 0:
+                return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
+            if password != password2:
+                return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
     form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
