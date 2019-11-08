@@ -1,16 +1,24 @@
 from django.db import models
 from django.forms import ModelForm
 
+
 class Course(models.Model):
+    Days = {
+        (0 , 'Saturday'),
+        (1 , 'Sunday'),
+        (2 , 'Monday'),
+        (3 , 'Tuesday'),
+        (4 , 'Wednesday'),
+    }
     department = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
     course_number = models.PositiveIntegerField()
     group_number = models.PositiveIntegerField()
     teacher = models.CharField(max_length=30)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    first_day = models.DateField()
-    second_day = models.DateField(blank=True)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    first_day = models.IntegerField(choices=Days)
+    second_day = models.IntegerField(blank=True, choices=Days)
 
     def __str__(self):
         return self.name

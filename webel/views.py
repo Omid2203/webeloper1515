@@ -77,9 +77,9 @@ def contact(request):
             email_from = settings.EMAIL_HOST_USER
             text = request.POST['text']
             print(title, text, email)
-            send_mail(title, text, email_from, ['mohammadomid.79@gmail.com'])
-            email = EmailMessage(title, text, to=['mohammadomid.79@gmail.com'])
-            email.send()
+  #          send_mail(title, text, email_from, ['mohammadomid.79@gmail.com'])
+   ##         email = EmailMessage(title, text, to=['mohammadomid.79@gmail.com'])
+     #       email.send()
             return redirect('contactdone')
     return render(request, "contact.html", {'form': form})
 
