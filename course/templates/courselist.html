@@ -10,4 +10,15 @@
                         <div>{{ stu.start_time }} {{ stu.end_time }}</div>
                         <div>{{ stu.teacher }}</div>
           {% endfor %}
+
+    <form id="search_form" method="POST">
+    {% csrf_token %}
+        <input name="search_query" type="text">
+        <button type="submit" name="submit">Submit</button>
+        {% for stu in object_list %}
+            {{ stu }}
+        {% endfor %}
+    </form>
+
+
 {% endblock %}

@@ -18,6 +18,8 @@ class Contact(forms.Form):
 
 
 class EditProfileForm(UserChangeForm):
+    picture = forms.ImageField()
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name')

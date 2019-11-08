@@ -3,7 +3,6 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .models import CourseForm, Course
-
 from django.views.generic import ListView, CreateView
 
 # Create your views here.
@@ -12,27 +11,25 @@ class CourseListView(ListView):
     model = Course
     context_object_name = 'course'
 
-# class CourseCreateView(CreateView):
-#     template_name = 'courses.html'
-#     model = Course
-#     form_class = CourseForm
-#     success_url = reverse_lazy('courselist')
+    def get_queryset(self):
+        try:
+            name = self.kwargs['department']
+        except:
+            name = ''
+        if (name != ''):
+            object_list = self.model.objects.filter(name__icontains = name)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
+@login_required
 def course(request):
     if request.method == 'POST':
         form = CourseForm(request.POST)
         if form.is_valid():
-            # department = form.cleaned_data.get('department')
-            # name = form.cleaned_data.get('name')
-            # course_number = form.cleaned_data.get('course_number')
-            # group_number = form.cleaned_data.get('group_number')
-            # teacher = form.cleaned_data.get('teacher')
-            # start_time = form.cleaned_data.get('start_time')
-            # end_time = form.cleaned_data.get('end_time')
-            # first_day = form.cleaned_data.get('first_day')
-            # second_day = form.cleaned_data.get('second_day')
             form.save()
             return redirect('courselist')
+
     form = CourseForm()
     return render(request, 'courses.html', {'form': form})
 
@@ -44,4 +41,4 @@ def courses(request):
         form = CourseForm(request.POST)
         if form.is_valid():
             form.save()
-    return render(request, 'courses.html', {'form':form})
+    return render(request, 'courses.html', {'form':form,})
