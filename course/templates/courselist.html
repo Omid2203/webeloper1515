@@ -2,7 +2,7 @@
 {% block body_block %}
   <h2 id="welcomemessage">خوش آمدید</h2>
             {% for stu in course %}
-                <div id=”all_courses”>
+                <div id="all_courses">
                     <div class="{{ stu.course_number }}_{{ stu.group_number }}">
                         <h4>{{ stu.name }}</h4>
                         <div>{{ stu.department }}</div>
