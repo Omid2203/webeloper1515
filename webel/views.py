@@ -11,21 +11,21 @@ from django.urls import reverse
 from .forms import SignUpForm, Contact, EditProfileForm
 
 from django.http import HttpResponseRedirect, HttpResponse
-from django.core.mail import BadHeaderError, send_mail
+from django.core.mail import BadHeaderError, send_mail, EmailMessage
 
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password1']
+        password2 = request.POST['password2']
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            password2 = form.cleaned_data.get('password2')
+            # username = form.cleaned_data.get('username')
+            # password = form.cleaned_data.get('password1')
+            # password2 = form.cleaned_data.get('password2')
             return redirect('home')
-        username = request.POST['username']
-        password = form.cleaned_data.get('password1')
-        password2 = form.cleaned_data.get('password2')
         if password != password2:
             return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
         user = User.objects.filter(username=str(username)).count()
