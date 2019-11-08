@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body_block %}
 
-        <form id=”make_course” method="POST">
+        <form id=”make_course” action="." method="POST">
             {% csrf_token %}
             {{  form.as_p }}
 {#            <input name=”department” placeholder="Department">#}
