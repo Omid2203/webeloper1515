@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 {% block body_block %}
-{##}
-{#  <h2>Sign up</h2>#}
-{#  <form method="post" action="{% url 'signup' %}" id="register_form">#}
-{#    {% csrf_token %}#}
-{#      <label>First Name</label>#}
-{#      <input type="text" name="first_name">#}
-{#      <label>Last Name</label>#}
-{#      <input type="text" name="last_name">#}
-{#      <label>Username</label>#}
-{#      <input type="text" name="username">#}
-{#      <label>Email</label>#}
-{#      <input type="text" name="email">#}
-{#      <label>Password</label>#}
-{#      <input type="text" name="password1">#}
-{#      <label>Confirm Password</label>#}
-{#      <input type="text" name="password2">#}
-{#    <button type="submit" name="submit">Sign up</button>#}
-{##}
-{##}
-{#      {% if error %}#}
-{#        <div id="error">{{ error }}</div>#}
-{#    {% endif %}#}
-{##}
-{#  </form>#}
+
+  <h2>Sign up</h2>
+  <form method="post" action="{% url 'signup' %}" id="register_form">
+    {% csrf_token %}
+      <label>First Name</label>
+      <input type="text" name="first_name">
+      <label>Last Name</label>
+      <input type="text" name="last_name">
+      <label>Username</label>
+      <input type="text" name="username">
+      <label>Email</label>
+      <input type="text" name="email">
+      <label>Password</label>
+      <input type="text" name="password1">
+      <label>Confirm Password</label>
+      <input type="text" name="password2">
+    <button type="submit" name="submit">Sign up</button>
+
+
+      {% if error %}
+        <div id="errors">{{ error }}</div>
+    {% endif %}
+
+  </form>
 {% endblock %}
