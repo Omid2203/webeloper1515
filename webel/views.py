@@ -102,12 +102,26 @@ def userprofile(request):
 def userprofileedit(request):
     if request.method == "POST":
         form = EditProfileForm(request.POST,instance=request.user)
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        context = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'form': form,
+        }
         if form.is_valid():
             form.save()
             return redirect('userprofile')
     else:
         form = EditProfileForm(request.POST,instance=request.user)
-        return render(request, 'userprofileedit.html', {'form':form})
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        context = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'form': form,
+        }
+        return render(request, 'userprofileedit.html', context)
 
 @login_required
 def panel(request):
