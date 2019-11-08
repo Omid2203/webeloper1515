@@ -30,4 +30,9 @@ class Migration(migrations.Migration):
             name='start_time',
             field=models.TimeField(),
         ),
+        migrations.AlterField(
+            model_name='course',
+            name='exam_date',
+            field=models.DateField(),
+        ),
     ]

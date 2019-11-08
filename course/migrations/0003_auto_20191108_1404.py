@@ -20,4 +20,9 @@ class Migration(migrations.Migration):
             name='second_day',
             field=models.IntegerField(null=True),
         ),
+        migrations.AlterField(
+            model_name='course',
+            name='exam_date',
+            field=models.DateField(),
+        ),
     ]
