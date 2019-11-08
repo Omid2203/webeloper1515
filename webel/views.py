@@ -20,6 +20,9 @@ def signup(request):
         username = request.POST['username']
         password = request.POST['password1']
         password2 = request.POST['password2']
+        user = User.objects.filter(username=str(username)).count()
+        if user > 0:
+            return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
         if form.is_valid():
             form.save()
             # username = form.cleaned_data.get('username')
@@ -28,9 +31,9 @@ def signup(request):
             return redirect('home')
         if password != password2:
             return render(request, 'signup.html', context={"error": "گذرواژه و تکرار گذرواژه یکسان نیستند"})
-        user = User.objects.filter(username=str(username)).count()
-        if user > 0:
-            return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
+        # user = User.objects.filter(username=str(username)).count()
+        # if user > 0:
+        #     return render(request, 'signup.html', context={"error": "نام کاربری شما در سیستم موجود است "})
     form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
@@ -71,7 +74,8 @@ def contact(request):
             text = request.POST['text']
             print(title, text, email)
             send_mail(title, text, email_from, ['mohammadomid.79@gmail.com'])
-
+            email = EmailMessage(title, text, to=['mohammadomid.79@gmail.com'])
+            email.send()
             return redirect('contactdone')
     return render(request, "contact.html", {'form': form})
 
