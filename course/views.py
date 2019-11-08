@@ -28,7 +28,7 @@ def course(request):
         form = CourseForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('courselist')
+            return render(request, 'courselist.html', {'form': form})
 
     form = CourseForm()
     return render(request, 'courses.html', {'form': form})
