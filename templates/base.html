@@ -7,8 +7,8 @@
     <div class="container">
         <div class="navbar">
         {% if user.is_authenticated %}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light"  id="navbar">
-                 <div class="collapse navbar-collapse">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav mr-auto">
                         <a class="navbar-brand" id="homepage" href="/">Home Page</a>
                         <a class="nav-link" id="profile" href="{% url 'userprofile' %}">User Profile</a>
@@ -19,8 +19,8 @@
 
 
             {% else %}
-                <nav class="navbar navbar-expand-lg navbar-light bg-light"  id="navbar">
-                 <div class="collapse navbar-collapse">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+                 <div class="collapse navbar-collapse"  id="navbar">
                     <a class="navbar-brand" id="login" href="{% url 'login' %}">Login</a>
                     <a class="nav-link" id="register" href="{% url 'signup' %}">Register</a>
                     <a class="nav-link" id="homepage" href="/">Home Page</a>

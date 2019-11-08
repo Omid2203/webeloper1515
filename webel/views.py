@@ -44,7 +44,6 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-
 def loginview(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
@@ -61,7 +60,6 @@ def loginview(request):
             return render(request, template_name='login.html', context={"error": "error is this!", "form": form})
     form = AuthenticationForm()
     return render(request, template_name="login.html", context={"form": form})
-
 
 
 def logout_view(request):
