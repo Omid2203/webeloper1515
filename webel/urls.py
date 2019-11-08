@@ -32,8 +32,9 @@ urlpatterns = [
     path('userprofile/', views.userprofile, name="userprofile"),
     path('userprofileedit/', views.userprofileedit, name="userprofileedit"),
     path('panel/', views.panel, name="panel"),
-    path('courses/', appview.CourseCreateView.as_view(), name="courses"),
-    path('courselist/', appview.CourseListView.as_view(), name='courselist')
+    path('courses/', appview.course, name="courses"),
+    path('courselist/', appview.CourseListView.as_view(), name='courselist'),
+
 
 
 ]

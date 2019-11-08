@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
 
@@ -18,7 +18,24 @@ class CourseCreateView(CreateView):
     form_class = CourseForm
     success_url = reverse_lazy('courselist')
 
+def course(request):
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            department = form.cleaned_data.get('department')
+            name = form.cleaned_data.get('name')
+            course_number = form.cleaned_data.get('course_number')
+            group_number = form.cleaned_data.get('group_number')
+            teacher = form.cleaned_data.get('teacher')
+            start_time = form.cleaned_data.get('start_time')
+            end_time = form.cleaned_data.get('end_time')
+            first_day = form.cleaned_data.get('first_day')
+            second_day = form.cleaned_data.get('second_day')
 
+            form.save()
+            return redirect('courselist')
+    form = CourseForm()
+    return render(request, 'courses.html', {'form': form})
 
 @login_required
 def courses(request):

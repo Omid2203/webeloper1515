@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block body_block %}
   <h2 id="welcomemessage">خوش آمدید</h2>
             {% for stu in course %}
                 <div id=”all_courses”>
@@ -15,5 +10,4 @@
                         <div>{{ stu.start_time }} {{ stu.end_time }}</div>
                         <div>{{ stu.teacher }}</div>
           {% endfor %}
-</body>
-</html>
+{% endblock %}
